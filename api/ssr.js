@@ -1,4 +1,20 @@
 import { Buffer } from 'buffer';
+import fs from 'fs';
+import path from 'path';
+
+const MIME = {
+  '.js': 'application/javascript',
+  '.css': 'text/css',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.avif': 'image/avif',
+  '.webp': 'image/webp',
+  '.svg': 'image/svg+xml',
+  '.mp4': 'video/mp4',
+  '.json': 'application/json',
+  '.woff2': 'font/woff2',
+};
 
 function readRequestBody(req) {
   return new Promise((resolve, reject) => {
@@ -11,6 +27,28 @@ function readRequestBody(req) {
 
 export default async function handler(req, res) {
   try {
+    // Serve static assets from dist/client first
+    try {
+      const host = req.headers.host || 'localhost';
+      const url = new URL(req.url || '/', `http://${host}`);
+      const pathname = decodeURIComponent(url.pathname);
+
+      // Only serve files that live under /assets or known static filenames
+      if (pathname.startsWith('/assets/') || pathname === '/favicon.png' || pathname.endsWith('.css') || pathname.endsWith('.js') || pathname.endsWith('.png') || pathname.endsWith('.jpg') || pathname.endsWith('.jpeg') || pathname.endsWith('.mp4')) {
+        const filePath = path.join(process.cwd(), 'dist', 'client', pathname);
+        if (fs.existsSync(filePath)) {
+          const ext = path.extname(filePath).toLowerCase();
+          const mime = MIME[ext] || 'application/octet-stream';
+          const data = await fs.promises.readFile(filePath);
+          res.statusCode = 200;
+          res.setHeader('content-type', mime);
+          return res.end(Buffer.from(data));
+        }
+      }
+    } catch (e) {
+      // ignore and fallthrough to SSR handler
+      console.error('static asset serve error:', e);
+    }
     const { default: server } = await import('../dist/server/server.js');
 
     const host = req.headers.host || 'localhost';
