@@ -37,7 +37,14 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
-          <img src={logo} alt="MR.HUB" className="h-18 w-auto" />
+          <img
+            src={logo}
+            alt="MR.HUB"
+            className="h-18 w-auto"
+            width={240}
+            height={72}
+            decoding="async"
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">

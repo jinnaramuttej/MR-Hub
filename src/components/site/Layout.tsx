@@ -1,6 +1,11 @@
+import { lazy, Suspense } from "react";
 import { Outlet } from "@tanstack/react-router";
+
 import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
+
+const LazyFooter = lazy(() =>
+  import("./Footer").then((module) => ({ default: module.Footer }))
+);
 
 export function SiteLayout() {
   return (
@@ -9,7 +14,9 @@ export function SiteLayout() {
       <main className="flex-1 pt-16">
         <Outlet />
       </main>
-      <Footer />
+      <Suspense fallback={<div className="h-24" aria-hidden="true" />}>
+        <LazyFooter />
+      </Suspense>
     </div>
   );
 }
