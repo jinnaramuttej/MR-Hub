@@ -1,0 +1,20 @@
+* [33m13bd41f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m feat: update and add new components and routes
+* [33m5f442ad[m chore: remove vercel.json to let vercel auto-detect
+* [33m0cc4201[m test: update navbar to verify deployment
+* [33m2096900[m fix: update vercel entry point and config
+* [33m26169b7[m chore: cleanup project and remove large media from git
+* [33m387d476[m fix vercel config
+* [33md269a22[m fix vercel config
+* [33ma97a95e[m final UI refinement before preview deploy
+* [33m6ba615a[m add routing fix
+* [33mc2a14ba[m fix build output
+* [33ma2b3b37[m Initial MR.HUB commit
+* [33mc0f43ca[m[33m ([m[1;31morigin/main[m[33m)[m ci: serve static assets from dist/client in Vercel SSR wrapper
+* [33mbd1389c[m css
+* [33m4d613af[m ci: remove vercel.json builds to allow project settings
+* [33m29cc038[m ci: robust request body + header handling in Vercel SSR wrapper
+* [33me7a7ccf[m ci: add Vercel serverless SSR wrapper and routing
+* [33md7916e8[m ci: include hero-bg.mp4 for production build
+* [33m9617367[m update
+* [33mc20d420[m add hero video
+* [33m1558205[m initial commit
