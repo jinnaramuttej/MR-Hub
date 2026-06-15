@@ -38,3 +38,4 @@ dist-ssr
 *.mkv
 public/mr.hub.mp4
 !src/assets/hero-bg.mp4
+.vercel
